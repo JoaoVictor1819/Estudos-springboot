@@ -41,4 +41,9 @@ public class AnimaisService {
     public void delete(long id) {
         animais.remove(findByid(id));
     }
+
+    public void replace(Animais animal) {
+        delete(animal.getId());
+        animais.add(animal);
+    }
 }

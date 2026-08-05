@@ -40,4 +40,10 @@ public class AnimalController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PutMapping
+    public ResponseEntity<Void> replace(@RequestBody Animais animal) {
+        animaisService.replace(animal);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }
