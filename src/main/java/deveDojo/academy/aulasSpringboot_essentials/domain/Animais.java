@@ -1,12 +1,20 @@
 package deveDojo.academy.aulasSpringboot_essentials.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.http.HttpStatusCode;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-public class Animais  {
+@Entity
+@NoArgsConstructor
+public class Animais {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
 

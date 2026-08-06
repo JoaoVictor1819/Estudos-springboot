@@ -5,8 +5,11 @@ services:
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: senha123
+      MYSQL_DATABASE: animais
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: senha123
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - ./mysql_data:/var/lib/mysql
 
