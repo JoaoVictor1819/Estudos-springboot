@@ -2,48 +2,49 @@ package deveDojo.academy.aulasSpringboot_essentials.service;
 
 
 import deveDojo.academy.aulasSpringboot_essentials.domain.Animais;
+import deveDojo.academy.aulasSpringboot_essentials.repository.AnimaisRepository;
+import deveDojo.academy.aulasSpringboot_essentials.requests.AnimaisPostRequestBody;
+import deveDojo.academy.aulasSpringboot_essentials.requests.AnimaisPutRequestBody;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 
 @Service
+@RequiredArgsConstructor
 public class AnimaisService {
-    private static List<Animais> animais;
 
-    static {
-        animais = new ArrayList<>(List.of(new Animais(1L,"Cachorro"), new Animais(2L,"gato")));
+
+    private final AnimaisRepository animaisRepository;
+
+
+    public List<Animais> listAll() {
+        return animaisRepository.findAll();
     }
 
-    // private final AnimaisRepository animaisRepository;
-    public List<Animais> listAll(){
-        return animais;
-    }
-
-    public Animais findByid(long id){
-        return  animais.stream()
-                .filter(animais -> animais.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Animais not Found"));
+    public Animais findByidOrThrowBadRequestExecepition(long id) {
+        return animaisRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Animais not Found"));
 
     }
 
-    public Animais save(Animais animal){
-        animal.setId(ThreadLocalRandom.current().nextLong(3, 100000));
-        animais.add(animal);
-        return animal;
+    public Animais save(AnimaisPostRequestBody animaisPostRequestBody) {
+        return animaisRepository.save(Animais.builder().nome(animaisPostRequestBody.getName()).build());
     }
 
     public void delete(long id) {
-        animais.remove(findByid(id));
+        animaisRepository.delete(findByidOrThrowBadRequestExecepition(id));
     }
 
-    public void replace(Animais animal) {
-        delete(animal.getId());
-        animais.add(animal);
+    public void replace(AnimaisPutRequestBody animaisPutRequestBody) {
+        Animais savedAnime = findByidOrThrowBadRequestExecepition(animaisPutRequestBody.getId());
+        Animais animal = Animais.builder()
+                .id(savedAnime.getId())
+                .nome(animaisPutRequestBody.getName())
+                .build();
+
+        animaisRepository.save(animal);
     }
 }

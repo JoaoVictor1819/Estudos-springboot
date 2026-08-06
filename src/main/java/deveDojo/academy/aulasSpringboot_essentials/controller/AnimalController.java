@@ -2,6 +2,8 @@ package deveDojo.academy.aulasSpringboot_essentials.controller;
 
 
 import deveDojo.academy.aulasSpringboot_essentials.domain.Animais;
+import deveDojo.academy.aulasSpringboot_essentials.requests.AnimaisPostRequestBody;
+import deveDojo.academy.aulasSpringboot_essentials.requests.AnimaisPutRequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,14 +26,14 @@ public class AnimalController {
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<Animais> findById(@PathVariable long id) {
-        return  ResponseEntity.ok(animaisService.findByid(id));
+        return  ResponseEntity.ok(animaisService.findByidOrThrowBadRequestExecepition(id));
     }
 
 
 
     @PostMapping
-    public ResponseEntity<Animais> save(@RequestBody Animais animal){
-      return new ResponseEntity<>(animaisService.save(animal), HttpStatus.CREATED);
+    public ResponseEntity<Animais> save(@RequestBody AnimaisPostRequestBody animaisPostRequestBody){
+      return new ResponseEntity<>(animaisService.save(animaisPostRequestBody), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
@@ -41,8 +43,8 @@ public class AnimalController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody Animais animal) {
-        animaisService.replace(animal);
+    public ResponseEntity<Void> replace(@RequestBody AnimaisPutRequestBody animaisPutRequestBody) {
+        animaisService.replace(animaisPutRequestBody);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
