@@ -20,6 +20,4 @@ public class Animais {
     private Long id;
     private String nome;
 
-
-
 }
