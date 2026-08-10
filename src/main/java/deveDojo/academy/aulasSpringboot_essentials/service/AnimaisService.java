@@ -2,6 +2,7 @@ package deveDojo.academy.aulasSpringboot_essentials.service;
 
 
 import deveDojo.academy.aulasSpringboot_essentials.domain.Animais;
+import deveDojo.academy.aulasSpringboot_essentials.mapper.AnimaisMapper;
 import deveDojo.academy.aulasSpringboot_essentials.repository.AnimaisRepository;
 import deveDojo.academy.aulasSpringboot_essentials.requests.AnimaisPostRequestBody;
 import deveDojo.academy.aulasSpringboot_essentials.requests.AnimaisPutRequestBody;
@@ -31,7 +32,7 @@ public class AnimaisService {
     }
 
     public Animais save(AnimaisPostRequestBody animaisPostRequestBody) {
-        return animaisRepository.save(Animais.builder().nome(animaisPostRequestBody.getName()).build());
+        return animaisRepository.save(AnimaisMapper.INSTANCE.toAnimais(animaisPostRequestBody));
     }
 
     public void delete(long id) {
@@ -40,11 +41,8 @@ public class AnimaisService {
 
     public void replace(AnimaisPutRequestBody animaisPutRequestBody) {
         Animais savedAnime = findByidOrThrowBadRequestExecepition(animaisPutRequestBody.getId());
-        Animais animal = Animais.builder()
-                .id(savedAnime.getId())
-                .nome(animaisPutRequestBody.getName())
-                .build();
-
+        Animais animal = AnimaisMapper.INSTANCE.toAnimais(animaisPutRequestBody);
+        animal.setId(savedAnime.getId());
         animaisRepository.save(animal);
     }
 }
