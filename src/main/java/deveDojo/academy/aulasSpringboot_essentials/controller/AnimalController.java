@@ -29,6 +29,11 @@ public class AnimalController {
         return  ResponseEntity.ok(animaisService.findByidOrThrowBadRequestExecepition(id));
     }
 
+    @GetMapping(path = "/find")
+    public ResponseEntity<List<Animais>> findByName(@RequestParam String name) {
+        return  ResponseEntity.ok(animaisService.findByName(name));
+    }
+
 
 
     @PostMapping

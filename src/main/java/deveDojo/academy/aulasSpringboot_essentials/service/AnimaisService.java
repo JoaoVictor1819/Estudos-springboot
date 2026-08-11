@@ -26,6 +26,10 @@ public class AnimaisService {
         return animaisRepository.findAll();
     }
 
+    public List<Animais> findByName(String name) {
+        return animaisRepository.findByName(name);
+    }
+
     public Animais findByidOrThrowBadRequestExecepition(long id) {
         return animaisRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Animais not Found"));
 
@@ -45,4 +49,5 @@ public class AnimaisService {
         animal.setId(savedAnime.getId());
         animaisRepository.save(animal);
     }
+
 }
