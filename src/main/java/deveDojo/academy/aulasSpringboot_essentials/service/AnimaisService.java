@@ -2,6 +2,7 @@ package deveDojo.academy.aulasSpringboot_essentials.service;
 
 
 import deveDojo.academy.aulasSpringboot_essentials.domain.Animais;
+import deveDojo.academy.aulasSpringboot_essentials.exception.BadRequestExcptions;
 import deveDojo.academy.aulasSpringboot_essentials.mapper.AnimaisMapper;
 import deveDojo.academy.aulasSpringboot_essentials.repository.AnimaisRepository;
 import deveDojo.academy.aulasSpringboot_essentials.requests.AnimaisPostRequestBody;
@@ -31,7 +32,7 @@ public class AnimaisService {
     }
 
     public Animais findByidOrThrowBadRequestExecepition(long id) {
-        return animaisRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Animais not Found"));
+        return animaisRepository.findById(id).orElseThrow(() -> new BadRequestExcptions("Animais not Found"));
 
     }
 
