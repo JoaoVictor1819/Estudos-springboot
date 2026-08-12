@@ -4,6 +4,7 @@ package deveDojo.academy.aulasSpringboot_essentials.controller;
 import deveDojo.academy.aulasSpringboot_essentials.domain.Animais;
 import deveDojo.academy.aulasSpringboot_essentials.requests.AnimaisPostRequestBody;
 import deveDojo.academy.aulasSpringboot_essentials.requests.AnimaisPutRequestBody;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class AnimalController {
 
 
     @PostMapping
-    public ResponseEntity<Animais> save(@RequestBody AnimaisPostRequestBody animaisPostRequestBody){
+    public ResponseEntity<Animais> save(@RequestBody @Valid AnimaisPostRequestBody animaisPostRequestBody){
       return new ResponseEntity<>(animaisService.save(animaisPostRequestBody), HttpStatus.CREATED);
     }
 

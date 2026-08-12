@@ -10,6 +10,7 @@ import deveDojo.academy.aulasSpringboot_essentials.requests.AnimaisPutRequestBod
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class AnimaisService {
         return animaisRepository.findById(id).orElseThrow(() -> new BadRequestExcptions("Animais not Found"));
 
     }
-
+    @Transactional
     public Animais save(AnimaisPostRequestBody animaisPostRequestBody) {
         return animaisRepository.save(AnimaisMapper.INSTANCE.toAnimais(animaisPostRequestBody));
     }
