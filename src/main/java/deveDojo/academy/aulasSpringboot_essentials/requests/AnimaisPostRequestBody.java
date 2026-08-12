@@ -9,8 +9,9 @@ import org.hibernate.validator.constraints.URL;
 
 @Data
 public class AnimaisPostRequestBody {
-    @NotEmpty(message = "The anime name cannot be empty")
+    @NotEmpty(message = "The animais name cannot be empty")
     private String name;
+
 
 
 }

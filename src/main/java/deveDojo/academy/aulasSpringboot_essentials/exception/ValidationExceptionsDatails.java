@@ -6,6 +6,7 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @SuperBuilder
-public class BadRequestExcptionDetails extends ExceptionsDetails{
-
+public class ValidationExceptionsDatails extends ExceptionsDetails{
+    private final String fields;
+    private final String fieldsMenssage;
 }
