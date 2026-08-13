@@ -8,6 +8,8 @@ import deveDojo.academy.aulasSpringboot_essentials.repository.AnimaisRepository;
 import deveDojo.academy.aulasSpringboot_essentials.requests.AnimaisPostRequestBody;
 import deveDojo.academy.aulasSpringboot_essentials.requests.AnimaisPutRequestBody;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,8 +26,8 @@ public class AnimaisService {
     private final AnimaisRepository animaisRepository;
 
 
-    public List<Animais> listAll() {
-        return animaisRepository.findAll();
+    public Page<Animais> listAll(Pageable pageable) {
+        return animaisRepository.findAll(pageable);
     }
 
     public List<Animais> findByName(String name) {

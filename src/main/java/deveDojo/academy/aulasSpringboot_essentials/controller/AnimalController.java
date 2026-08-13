@@ -6,6 +6,8 @@ import deveDojo.academy.aulasSpringboot_essentials.requests.AnimaisPostRequestBo
 import deveDojo.academy.aulasSpringboot_essentials.requests.AnimaisPutRequestBody;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +23,8 @@ public class AnimalController {
 
     //localhost:8080/animais
     @GetMapping
-    public ResponseEntity <List<Animais>> list() {
-        return  ResponseEntity.ok(animaisService.listAll());
+    public ResponseEntity <Page<Animais>> list(Pageable pageable) {
+        return  ResponseEntity.ok(animaisService.listAll(pageable));
     }
 
     @GetMapping(path = "/{id}")
