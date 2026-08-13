@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface AnimaisRepository extends JpaRepository <Animais, Long>{
-
     List<Animais> findByName(String name);
 
 }
