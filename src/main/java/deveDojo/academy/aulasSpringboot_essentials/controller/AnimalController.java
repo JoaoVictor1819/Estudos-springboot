@@ -27,6 +27,11 @@ public class AnimalController {
         return  ResponseEntity.ok(animaisService.listAll(pageable));
     }
 
+    @GetMapping(path = "/all")
+    public ResponseEntity <List<Animais>> listAll() {
+        return  ResponseEntity.ok(animaisService.listAllNoPage());
+    }
+
     @GetMapping(path = "/{id}")
     public ResponseEntity<Animais> findById(@PathVariable long id) {
         return  ResponseEntity.ok(animaisService.findByidOrThrowBadRequestExecepition(id));

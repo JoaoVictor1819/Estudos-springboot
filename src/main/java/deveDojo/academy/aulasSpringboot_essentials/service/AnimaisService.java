@@ -30,14 +30,18 @@ public class AnimaisService {
         return animaisRepository.findAll(pageable);
     }
 
+    public List<Animais> listAllNoPage() {
+        return animaisRepository.findAll();
+    }
+
     public List<Animais> findByName(String name) {
         return animaisRepository.findByName(name);
     }
-
     public Animais findByidOrThrowBadRequestExecepition(long id) {
         return animaisRepository.findById(id).orElseThrow(() -> new BadRequestExcptions("Animais not Found"));
 
     }
+
     @Transactional
     public Animais save(AnimaisPostRequestBody animaisPostRequestBody) {
         return animaisRepository.save(AnimaisMapper.INSTANCE.toAnimais(animaisPostRequestBody));
@@ -53,5 +57,4 @@ public class AnimaisService {
         animal.setId(savedAnime.getId());
         animaisRepository.save(animal);
     }
-
 }
