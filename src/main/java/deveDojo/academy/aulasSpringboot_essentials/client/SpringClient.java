@@ -2,9 +2,11 @@ package deveDojo.academy.aulasSpringboot_essentials.client;
 
 
 import deveDojo.academy.aulasSpringboot_essentials.domain.Animais;
+import deveDojo.academy.aulasSpringboot_essentials.requests.AnimaisPostRequestBody;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -33,18 +35,18 @@ public class SpringClient {
 
 
 //        Animais Jabuti = Animais.builder().name("Jabuti").build();
-//        Animais JabutiAnimais = new RestTemplate().postForObject("http://localhost:8080/animais/", Jabuti, Animais.class);
-//        log.info("saved animais {}", JabutiAnimais);
+//        Animais JabutiAnimais = new RestTemplate().postForObject("http://localhost:8080/animais", Jabuti, Animais.class);
+//        log.info("Saved animal {}",JabutiAnimais);
 
         Animais Carcara = Animais.builder().name("Carcara").build();
-        ResponseEntity<Animais> CarcaraSaved = new RestTemplate().exchange("http://localhost:8080/animais/",
+        ResponseEntity<Animais> CarcaraSaved = new RestTemplate().exchange("http://localhost:8080/animais",
                 HttpMethod.POST,
-                new HttpEntity<>(Carcara, creatJson()),
+                new HttpEntity<>(Carcara, creatJsonHeader()),
                 Animais.class);
 
-        log.info("saved animais {}", CarcaraSaved);
+        log.info("Saved animal {}",CarcaraSaved);
     }
-    private static HttpHeaders creatJson(){
+    private static HttpHeaders creatJsonHeader(){
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         return httpHeaders;

@@ -6,6 +6,7 @@ import deveDojo.academy.aulasSpringboot_essentials.requests.AnimaisPostRequestBo
 import deveDojo.academy.aulasSpringboot_essentials.requests.AnimaisPutRequestBody;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/animais")
 @RequiredArgsConstructor
+@Log4j2
 public class AnimalController {
     private final AnimaisService animaisService;
 
@@ -43,11 +45,11 @@ public class AnimalController {
     }
 
 
-
     @PostMapping
     public ResponseEntity<Animais> save(@RequestBody @Valid AnimaisPostRequestBody animaisPostRequestBody){
-      return new ResponseEntity<>(animaisService.save(animaisPostRequestBody), HttpStatus.CREATED);
+        return new ResponseEntity<>(animaisService.save(animaisPostRequestBody), HttpStatus.CREATED);
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable long id) {
